@@ -30,25 +30,43 @@
     .header-text h1{font-size:22px; font-weight:700; margin-bottom:4px;}
     .header-text p{font-size:14px; opacity:0.9;}
 
-    /* === NAVIGATION === */
-    .nav-bar{background:#ffffff; padding:12px 20px; border-bottom:1px solid var(--border);}
+    /* === NAVIGATION - NOW HIDDEN BY DEFAULT === */
+    .nav-bar{
+        background:#ffffff; 
+        padding:14px 15px; 
+        border-bottom:1px solid var(--border);
+        box-shadow:0 2px 5px rgba(0,0,0,0.05);
+        display: none; /* ✅ HIDDEN BEFORE LOGIN */
+    }
     .nav-content{
-    max-width:1100px; 
-    margin:0 auto; 
-    display:flex;
-    justify-content:space-around;
-    align-items:center;
-    gap:15px;
-}
-    .nav-btn{color:var(--mu-green); font-weight:600; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:4px; text-align:center;}
-    .nav-btn:hover{background:var(--mu-light-gold);}
+        max-width:1100px; 
+        margin:0 auto; 
+        display:flex;
+        justify-content:space-around;
+        align-items:center;
+        gap:10px;
+    }
+    .nav-btn{
+        color:var(--mu-green); 
+        font-weight:700; 
+        text-decoration:none; 
+        font-size:15px; 
+        padding:8px 15px; 
+        border-radius:6px; 
+        text-align:center;
+        transition:all 0.25s ease;
+    }
+    .nav-btn:hover{
+        background:var(--mu-light-gold);
+        transform:translateY(-1px);
+    }
     .nav-btn.logout{color:#dc3545;}
 
     .container{max-width:1100px; margin:25px auto; background:white; padding:30px 20px; border-radius:8px; box-shadow:0 2px 12px rgba(0,0,0,0.08);}
-    .login-box{max-width:420px; margin:40px auto; padding:35px; background:white; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border-top:4px solid var(--mu-green);}
-    .login-logo{width:90px; display:block; margin:0 auto 15px;}
+    .login-box{max-width:420px; margin:40px auto; padding:35px; background:white; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.1); border-top:4px solid var(--mu-green); text-align:center;}
+    .login-logo{width:130px; display:block; margin:0 auto 15px;}
     h2{color:var(--mu-green); margin-bottom:18px; border-left:4px solid var(--mu-gold); padding-left:12px; font-size:20px;}
-    label{display:block; margin:14px 0 6px; font-weight:600; font-size:14px;}
+    label{display:block; margin:14px 0 6px; font-weight:600; font-size:14px; text-align:left;}
     input{width:100%; padding:13px; border:1px solid var(--border); border-radius:6px; font-size:15px; transition:border 0.2s;}
     input:focus{outline:none; border-color:var(--mu-green); box-shadow:0 0 0 3px rgba(0,102,51,0.1);}
     .btn{background:var(--mu-green); color:white; padding:14px; border:none; border-radius:6px; cursor:pointer; font-size:16px; font-weight:bold; width:100%; margin-top:18px; transition:background 0.2s;}
@@ -87,7 +105,7 @@
         font-weight: 600;
     }
 
-    /* === ✅ UPGRADED STATS SECTION - EDGE TO EDGE + PREMIUM PULSE === */
+    /* === EDGE-TO-EDGE BUTTONS + ELITE PULSE === */
     .stats {
         display: flex;
         justify-content: center;
@@ -98,7 +116,7 @@
         width: 100%;
     }
     .stat-card {
-        flex: 1; /* Equal width, fill almost full screen */
+        flex: 1;
         min-height: 52px;
         padding: 10px 8px;
         border-radius: 8px;
@@ -128,28 +146,13 @@
     }
     .stat-card.empty {
         background: linear-gradient(135deg, var(--mu-green), #008040);
-        /* 🔥 BEST PROFESSIONAL PULSE ANIMATION - SMOOTH, GLOWING, PREMIUM */
         animation: elitePulse 2.2s infinite ease-in-out;
     }
-    /* === 🔥 CUSTOM ELITE PULSE KEYFRAMES === */
     @keyframes elitePulse {
-        0% { 
-            transform: scale(1); 
-            box-shadow: 0 4px 12px rgba(0,102,51,0.3);
-            filter: brightness(1);
-        }
-        50% { 
-            transform: scale(1.03); 
-            box-shadow: 0 6px 25px rgba(0,102,51,0.55);
-            filter: brightness(1.12);
-        }
-        100% { 
-            transform: scale(1); 
-            box-shadow: 0 4px 12px rgba(0,102,51,0.3);
-            filter: brightness(1);
-        }
+        0% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,102,51,0.3); filter: brightness(1); }
+        50% { transform: scale(1.03); box-shadow: 0 6px 25px rgba(0,102,51,0.55); filter: brightness(1.12); }
+        100% { transform: scale(1); box-shadow: 0 4px 12px rgba(0,102,51,0.3); filter: brightness(1); }
     }
-    /* === END OF UPGRADED SECTION === */
 
     .section-title {
         color: var(--mu-green);
@@ -194,14 +197,14 @@
     }
     .hostel-card p {
         margin: 6px 0;
-        font-size: 14px;
-        color: #444;
+        font-size:14px;
+        color:#444;
     }
     .vacancy {
-        font-weight: 700;
-        color: var(--mu-green);
-        font-size: 15px;
-        margin-top: 8px;
+        font-weight:700;
+        color:var(--mu-green);
+        font-size:15px;
+        margin-top:8px;
     }
    
     .scroll-agreement{height:380px; overflow-y:auto; border:1px solid var(--border); padding:25px; background:#fafafa; margin:15px 0; border-radius:6px;}
@@ -306,7 +309,7 @@
     </div>
 </div>
 
-<!-- NAVIGATION -->
+<!-- NAVIGATION - HIDDEN UNTIL LOGIN -->
 <div class="nav-bar" id="navBar">
     <div class="nav-content">
         <a href="#" class="nav-btn" onclick="showDashboard(); return false;">🏠 Dashboard</a>
@@ -591,9 +594,7 @@
 </div>
 
 <script>
-// Store booked status dynamically instead of fixed list
 const bookedStudents = {};
-
 let hostelsDB = [
     {id:1, name:"Tulip Hostel", total:500, booked:481, gender:"Female"},
     {id:2, name:"Jacaranda Hostel", total:800, booked:780, gender:"Male"},
@@ -601,11 +602,9 @@ let hostelsDB = [
     {id:4, name:"Nanyuki Hostel", total:600, booked:580, gender:"Female"},
     {id:5, name:"KEMU Towers", total:1320, booked:980, gender:"Mixed"}
 ];
-
 let loggedInUser = null; 
 let selectedHostel = null;
 
-// Copy to clipboard function
 function copyToClipboard(text, el) {
     navigator.clipboard.writeText(text).then(() => {
         const original = el.innerHTML;
@@ -639,7 +638,6 @@ function handleLogin(){
         alertDiv.innerHTML = "<div class='alert alert-error'>Please fill in both fields</div>";
         return;
     }
-    // ONLY check: ends with /26 or /2026 AND username matches password
     if(!user.endsWith("/2026") && !user.endsWith("/26")){
         alertDiv.innerHTML = "<div class='alert alert-error'>Please enter a valid Admission Number ending with /2026 or /26</div>";
         return;
@@ -648,12 +646,10 @@ function handleLogin(){
         alertDiv.innerHTML = "<div class='alert alert-error'>Username and Password must both be your Admission Number</div>";
         return;
     }
-    // Check if already booked
     if(bookedStudents[user]){
         alertDiv.innerHTML = "<div class='alert alert-error'>You have already completed your hostel booking</div>";
         return;
     }
-    // Accept ANY valid admission number
     loggedInUser = { adm: user, name: "Student", course: "Undergraduate" };
     showDashboard();
 }
@@ -661,7 +657,7 @@ function handleLogin(){
 function showDashboard(){
     document.getElementById('loginPage').classList.add('hidden');
     document.getElementById('dashboardPage').classList.remove('hidden');
-    document.getElementById('navBar').style.display = 'flex';
+    document.getElementById('navBar').style.display = 'flex'; /* ✅ SHOW ONLY AFTER LOGIN */
     
     document.getElementById('studentAdm').innerText = loggedInUser.adm;
     
@@ -759,7 +755,7 @@ function backToDashboard(){
 function logout(){
     loggedInUser = null;
     selectedHostel = null;
-    document.getElementById('navBar').style.display = 'none';
+    document.getElementById('navBar').style.display = 'none'; /* ✅ HIDE AFTER LOGOUT */
     document.getElementById('dashboardPage').classList.add('hidden');
     document.getElementById('bookingPage').classList.add('hidden');
     document.getElementById('loginPage').classList.remove('hidden');

@@ -23,17 +23,17 @@
     .top-bar a{color:var(--mu-green); font-weight:600; text-decoration:none;}
     .verified-badge{background:#e6fffa; color:#00796b; padding:3px 8px; border-radius:12px; font-size:11px; font-weight:bold;}
 
-    /* === MAIN HEADER — NO EXTRA TEXT === */
-    .main-header{background:var(--mu-green); color:white; padding:22px 20px; text-align:center; border-bottom:6px solid var(--mu-gold);}
-    .header-content{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap;}
-    .header-logo{width:75px; height:auto; display:block;}
+    /* === MAIN HEADER === */
+    .main-header{background:var(--mu-green); color:white; padding:20px; text-align:center; border-bottom:6px solid var(--mu-gold);}
+    .header-content{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:15px; flex-wrap:wrap;}
+    .header-logo{width:70px; height:auto;}
     .header-text h1{font-size:22px; font-weight:700; margin-bottom:4px;}
-    .header-text p{font-size:14px; opacity:0.92;}
+    .header-text p{font-size:14px; opacity:0.9;}
 
     /* === NAVIGATION === */
-    .nav-bar{background:#ffffff; padding:14px 20px; border-bottom:1px solid var(--border);}
-    .nav-content{max-width:1100px; margin:0 auto; display:flex; justify-content:flex-end; align-items:center; gap:15px; flex-wrap:wrap;}
-    .nav-btn{display:inline-block; color:var(--mu-green); font-weight:600; text-decoration:none; font-size:14px; padding:8px 14px; border-radius:4px; transition:all 0.2s; white-space:nowrap;}
+    .nav-bar{background:#ffffff; padding:12px 20px; border-bottom:1px solid var(--border);}
+    .nav-content{max-width:1100px; margin:0 auto; text-align:right;}
+    .nav-btn{display:inline-block; margin-left:15px; color:var(--mu-green); font-weight:600; text-decoration:none; font-size:14px; padding:6px 12px; border-radius:4px;}
     .nav-btn:hover{background:var(--mu-light-gold);}
     .nav-btn.logout{color:#dc3545;}
 
@@ -255,11 +255,10 @@
     </div>
 </div>
 
-<!-- MAIN HEADER — NO EXTRA TEXT, LOGO WORKS -->
+<!-- MAIN HEADER -->
 <div class="main-header">
     <div class="header-content">
-        <!-- Use this official logo link, no file needed -->
-        <img src="https://www.must.ac.ke/wp-content/uploads/2020/07/cropped-MUST-Logo-180x180.png" alt="Meru University Logo" class="header-logo">
+        <img src="meru.jpg" alt="Meru University Logo" class="header-logo">
         <div class="header-text">
             <h1>MERU UNIVERSITY OF SCIENCE AND TECHNOLOGY</h1>
             <p>Hostel & Accommodation Booking Portal | Academic Year 2026/2027</p>
@@ -279,8 +278,7 @@
 <!-- LOGIN PAGE -->
 <div class="container" id="loginPage">
     <div class="login-box">
-        <!-- Same official logo here -->
-        <img src="https://www.must.ac.ke/wp-content/uploads/2020/07/cropped-MUST-Logo-180x180.png" alt="Meru University Logo" class="login-logo">
+        <img src="meru.jpg" alt="Meru University Logo" class="login-logo">
         <h2 style="text-align:center; border:none; padding:0;">Student Login</h2>
         <div id="loginAlert"></div>
         <form onsubmit="handleLogin(); return false;">
@@ -299,7 +297,7 @@
 <!-- DASHBOARD PAGE -->
 <div class="container hidden" id="dashboardPage">
     <div class="dashboard-header">
-        <img src="https://www.must.ac.ke/wp-content/uploads/2020/07/cropped-MUST-Logo-180x180.png" alt="Meru University Logo" class="dashboard-logo">
+        <img src="meru.jpg" alt="Meru University Logo" class="dashboard-logo">
         <h2>Welcome, <span id="studentName"></span></h2>
         <div class="student-info">
             Admission No: <strong id="studentAdm"></strong> | Programme: <strong id="studentCourse"></strong>
@@ -614,7 +612,7 @@ function handleLogin(){
 function showDashboard(){
     document.getElementById('loginPage').classList.add('hidden');
     document.getElementById('dashboardPage').classList.remove('hidden');
-    document.getElementById('navBar').style.display = 'flex';
+    document.getElementById('navBar').style.display = 'block';
     document.getElementById('studentName').innerText = loggedInUser.name;
     document.getElementById('studentAdm').innerText = loggedInUser.adm;
     document.getElementById('studentCourse').innerText = loggedInUser.course;

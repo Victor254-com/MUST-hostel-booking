@@ -55,6 +55,7 @@
         border-radius:6px; 
         text-align:center;
         transition:all 0.25s ease;
+        cursor:pointer;
     }
     .nav-btn:hover{
         background:var(--mu-light-gold);
@@ -326,10 +327,10 @@
         <div id="loginAlert"></div>
         <form onsubmit="handleLogin(); return false;">
             <label>Username / Admission Number
-                <input type="text" id="username" placeholder="e.g H148/2634/26 or H148/2634/2026" required>
+                <input type="text" id="username" required>
             </label>
             <label>Password
-                <input type="password" id="password" placeholder="Enter your Admission Number again" required>
+                <input type="password" id="password" placeholder="Enter admission number again" required>
             </label>
             <button class="btn">Sign In</button>
             <p class="small-note">Use your Admission Number for both Username and Password<br>For assistance contact: <b>accommodation@must.ac.ke</b></p>
@@ -501,29 +502,29 @@
             <p class="form-note">Enter information exactly as it appears on your admission letter and M-Pesa receipt</p>
             <div class="form-group">
                 <label>M-Pesa Transaction Code <span class="required">*</span>
-                    <input type="text" id="mpesaCode" placeholder="e.g QKX7Y9Z12" required>
+                    <input type="text" id="mpesaCode" required>
                 </label>
             </div>
             <div class="form-row-flex">
                 <div class="form-group half">
                     <label>Surname / Last Name <span class="required">*</span>
-                        <input type="text" id="surname" placeholder="Surname" required>
+                        <input type="text" id="surname" required>
                     </label>
                 </div>
                 <div class="form-group half">
                     <label>First & Middle Names <span class="required">*</span>
-                        <input type="text" id="otherNames" placeholder="Full Names" required>
+                        <input type="text" id="otherNames" required>
                     </label>
                 </div>
             </div>
             <div class="form-group">
                 <label>Active Email Address <span class="required">*</span>
-                    <input type="email" id="emailAddr" placeholder="your.email@example.com" required>
+                    <input type="email" id="emailAddr" required>
                 </label>
             </div>
             <div class="form-group">
                 <label>Faculty / School <span class="required">*</span>
-                    <input type="text" id="faculty" placeholder="e.g Faculty of Engineering, School of Business" required>
+                    <input type="text" id="faculty" required>
                 </label>
             </div>
         </div>

@@ -304,9 +304,9 @@
 <div class="container hidden" id="dashboardPage">
     <div class="dashboard-header">
         <img src="meru.jpg" alt="Meru University Logo" class="dashboard-logo">
-        <h2>Welcome,<span id="studentName"></span></h2> 
+        <h2>Welcome, MUST HOSTEL BOOKING</h2> 
         <div class="student-info">
-            Admission No: <strong id="studentAdm"></strong> | Programme: <strong id="studentCourse"></strong>
+            Admission No: <strong id="studentAdm"></strong> | Programme: <strong>Undergraduate</strong>
         </div>
     </div>
 
@@ -616,14 +616,12 @@ function handleLogin(){
 }
 
 function showDashboard(){
-    // ✅ Fixed: Properly toggle pages and navigation
     document.getElementById('loginPage').classList.add('hidden');
     document.getElementById('dashboardPage').classList.remove('hidden');
     document.getElementById('navBar').style.display = 'flex';
     
-    document.getElementById('studentName').innerText = loggedInUser.name;
+    // ✅ Fixed: Show fixed text instead of name and course
     document.getElementById('studentAdm').innerText = loggedInUser.adm;
-    document.getElementById('studentCourse').innerText = loggedInUser.course;
     
     let totalBooked = hostelsDB.reduce((a,h) => a + h.booked, 0);
     let totalEmpty = hostelsDB.reduce((a,h) => a + (h.total - h.booked), 0);

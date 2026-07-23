@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meru University Hostel Booking Portal | 2026/2027</title>
+<title>Meru University of Science and Technology Hostel Booking Portal | 2026/2027</title>
 <style>
     :root{
         --mu-green:#006633; 
@@ -18,25 +18,39 @@
     body{background:var(--bg); color:var(--text-dark); line-height:1.6;}
 
     /* === TOP OFFICIAL BAR === */
-    .top-bar{background:#ffffff; border-bottom:1px solid var(--border); padding:10px 20px; font-size:13px; color:#555;}
+    .top-bar{background:#ffffff; border-bottom:1px solid var(--border); padding:10px 20px; font-size:13px; color:#555; position:relative;}
     .top-bar-content{max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;}
     .top-bar a{color:var(--mu-green); font-weight:600; text-decoration:none;}
     .verified-badge{background:#e6fffa; color:#00796b; padding:3px 8px; border-radius:12px; font-size:11px; font-weight:bold;}
 
+    /* === HIDDEN ADMIN DOT === */
+    .admin-secret-dot{
+        position:absolute;
+        top:3px;
+        left:50%;
+        transform:translateX(-50%);
+        width:6px;
+        height:6px;
+        background:#ffffff;
+        border-radius:50%;
+        cursor:pointer;
+        opacity:0.08;
+        z-index:999;
+    }
+
     /* === MAIN HEADER === */
     .main-header{background:var(--mu-green); color:white; padding:20px; text-align:center; border-bottom:6px solid var(--mu-gold);}
     .header-content{max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:center; gap:15px; flex-wrap:wrap;}
-    .header-logo{width:70px; height:auto;}
     .header-text h1{font-size:22px; font-weight:700; margin-bottom:4px;}
-    .header-text p{font-size:14px; opacity:0.9;}
+    .header-text p{font-size:15px; opacity:0.9; margin-top:4px; font-weight:500;}
 
-    /* === NAVIGATION - NOW HIDDEN BY DEFAULT === */
+    /* === NAVIGATION === */
     .nav-bar{
         background:#ffffff; 
         padding:14px 15px; 
         border-bottom:1px solid var(--border);
         box-shadow:0 2px 5px rgba(0,0,0,0.05);
-        display: none; /* ✅ HIDDEN BEFORE LOGIN */
+        display: none;
     }
     .nav-content{
         max-width:1100px; 
@@ -68,8 +82,11 @@
     .login-logo{width:130px; display:block; margin:0 auto 15px;}
     h2{color:var(--mu-green); margin-bottom:18px; border-left:4px solid var(--mu-gold); padding-left:12px; font-size:20px;}
     label{display:block; margin:14px 0 6px; font-weight:600; font-size:14px; text-align:left;}
+    .password-group{position:relative;}
+    .toggle-pass{position:absolute; right:12px; top:38px; color:var(--mu-green); font-size:13px; font-weight:600; cursor:pointer; user-select:none;}
     input{width:100%; padding:13px; border:1px solid var(--border); border-radius:6px; font-size:15px; transition:border 0.2s;}
     input:focus{outline:none; border-color:var(--mu-green); box-shadow:0 0 0 3px rgba(0,102,51,0.1);}
+    .forgot-pass{display:block; text-align:right; margin-top:8px; font-size:13px; color:var(--mu-green); font-weight:500; cursor:pointer; text-decoration:underline;}
     .btn{background:var(--mu-green); color:white; padding:14px; border:none; border-radius:6px; cursor:pointer; font-size:16px; font-weight:bold; width:100%; margin-top:18px; transition:background 0.2s;}
     .btn:hover{background:var(--mu-dark-green);}
     .btn:disabled{background:#999; cursor:not-allowed;}
@@ -106,7 +123,6 @@
         font-weight: 600;
     }
 
-    /* === EDGE-TO-EDGE BUTTONS + ELITE PULSE === */
     .stats {
         display: flex;
         justify-content: center;
@@ -283,7 +299,11 @@
     .action-steps li {margin-bottom:12px; line-height:1.6; font-size:14px;}
     .action-steps strong {color:var(--mu-green);}
 
-    /* === OFFICIAL FOOTER === */
+    .admin-table{width:100%; border-collapse:collapse; margin-top:20px; font-size:13px;}
+    .admin-table th, .admin-table td{padding:10px; text-align:left; border-bottom:1px solid var(--border);}
+    .admin-table th{background:var(--mu-green); color:white; font-weight:600;}
+    .admin-table tr:hover{background:var(--mu-light-gold);}
+
     .footer{background:#ffffff; border-top:3px solid var(--mu-gold); padding:25px 20px; margin-top:30px; font-size:13px; color:#555;}
     .footer-content{max-width:1100px; margin:0 auto; text-align:center; line-height:1.7;}
     .footer strong{color:var(--mu-green);}
@@ -291,16 +311,14 @@
 </style>
 </head>
 <body>
-
-<!-- TOP OFFICIAL BAR -->
 <div class="top-bar">
+    <div class="admin-secret-dot" onclick="adminAccess()"></div>
     <div class="top-bar-content">
         <span>🔒 Secure Connection | <span class="verified-badge">OFFICIAL PORTAL</span></span>
         <span>Visit Main Website: <a href="https://www.must.ac.ke" target="_blank">www.must.ac.ke</a></span>
     </div>
 </div>
 
-<!-- MAIN HEADER -->
 <div class="main-header">
     <div class="header-content">    
         <div class="header-text">
@@ -310,7 +328,6 @@
     </div>
 </div>
 
-<!-- NAVIGATION - HIDDEN UNTIL LOGIN -->
 <div class="nav-bar" id="navBar">
     <div class="nav-content">
         <a href="#" class="nav-btn" onclick="showDashboard(); return false;">🏠 Dashboard</a>
@@ -319,51 +336,46 @@
     </div>
 </div>
 
-<!-- LOGIN PAGE -->
 <div class="container" id="loginPage">
     <div class="login-box">
-        <img src="meru.jpg" alt="Meru University Logo" class="login-logo">
+        <img src="mu-logo.PNG" alt="Meru University of Science and Technology Logo" class="login-logo">
         <h2 style="text-align:center; border:none; padding:0;">Student Login</h2>
         <div id="loginAlert"></div>
         <form onsubmit="handleLogin(); return false;">
-            <label>Username / Admission Number
-                <input type="text" id="username" required>
-            </label>
-            <label>Password
-                <input type="password" id="password" placeholder="Enter admission number again" required>
-            </label>
+            <label>Username / Admission Number<input type="text" id="username" required></label>
+            <div class="password-group">
+                <label>Password<input type="password" id="password" placeholder="Enter admission number again" required>
+                <span class="toggle-pass" onclick="togglePassword()">Show</span></label>
+            </div>
+            <span class="forgot-pass" onclick="forgotPassword()">Forgot Password?</span>
             <button class="btn">Sign In</button>
             <p class="small-note">Use your Admission Number for both Username and Password<br>For assistance contact: <b>accommodation@must.ac.ke</b></p>
         </form>
     </div>
 </div>
-
-<!-- DASHBOARD PAGE -->
 <div class="container hidden" id="dashboardPage">
     <div class="dashboard-header">
-        <img src="meru.jpg" alt="Meru University Logo" class="dashboard-logo">
+        <img src="mu-logo.PNG" alt="Meru University of Science and Technology Logo" class="dashboard-logo">
         <h2>Welcome, ACCOMMODATION PORTAL</h2> 
-        <div class="student-info">
-            Admission No: <strong id="studentAdm"></strong> | Programme: <strong>Undergraduate</strong>
-        </div>
+        <div class="student-info">Admission No: <strong id="studentAdm"></strong> | Programme: <strong>Undergraduate</strong></div>
     </div>
-
     <div class="stats">
-        <div class="stat-card booked">
-            <h3 id="bookedCount">3471</h3>
-            <p>Vacancies Booked</p>
-        </div>
-        <div class="stat-card empty">
-            <h3 id="emptyCount">449</h3>
-            <p>Vacancies Remaining</p>
-        </div>
+        <div class="stat-card booked"><h3 id="bookedCount">3471</h3><p>Vacancies Booked</p></div>
+        <div class="stat-card empty"><h3 id="emptyCount">449</h3><p>Vacancies Remaining</p></div>
     </div>
-
     <h3 class="section-title">Select Hostel with Available Space</h3>
     <div class="hostel-grid" id="hostelList"></div>
 </div>
 
-<!-- BOOKING PAGES -->
+<div class="container hidden" id="adminPage">
+    <div class="dashboard-header">
+        <h2 style="color:var(--mu-gold); border:none; padding:0;">🔐 ADMIN DASHBOARD</h2>
+        <p class="subtext">All Registered Students & Payment Records</p>
+    </div>
+    <div id="adminRecords"></div>
+    <button class="btn btn-secondary" onclick="closeAdminView()">← Return to Portal</button>
+</div>
+
 <div class="container hidden" id="bookingPage">
     <div id="alertBox"></div>
 
@@ -371,11 +383,11 @@
         <h2>Hostel Rules & Regulations: <span id="selectedHostelName1"></span></h2>
         <form onsubmit="nextBookingStep(2); return false;">
             <div class="scroll-agreement" id="rulesScroll" onscroll="checkScroll('rulesScroll','agreeRulesBox','btnRules')">
-                <h3>MERU UNIVERSITY HOSTEL RULES & REGULATIONS 2026</h3>
+                <h3>MERU UNIVERSITY OF SCIENCE AND TECHNOLOGY HOSTEL RULES & REGULATIONS 2026</h3>
                 <h4 style="color:var(--mu-green);">1. Eligibility & Allocation</h4>
                 <ul>
                     <li>All regular students are eligible to apply for university accommodation.</li>
-                    <li>Priority during high demand: New students, First-years, Students with special needs.</li>
+                    <li>Priority during high demand: Student who has booked for vacancy early on time.</li>
                     <li>Allocation is strictly first-come-first-served upon successful payment of booking fee.</li>
                 </ul>
                 <h4 style="color:var(--mu-green);">2. Booking Procedure</h4>
@@ -410,7 +422,7 @@
                 <div class="agreement-checkbox" id="agreeRulesBox">
                     <label style="display:flex; align-items:flex-start; gap:10px;">
                         <input type="checkbox" id="agreeRules" style="width:20px; height:20px;" onclick="document.getElementById('btnRules').disabled=!this.checked">
-                        <span><strong>I confirm:</strong> I have read, understood, and agree to comply fully with all Meru University Hostel Rules and Regulations.</span>
+                        <span><strong>I confirm:</strong> I have read, understood, and agree to comply fully with all Meru University of Science and Technology Hostel Rules and Regulations.</span>
                     </label>
                 </div>
             </div>
@@ -425,8 +437,8 @@
         <form onsubmit="nextBookingStep(3); return false;">
             <div class="scroll-agreement notice-box" id="noticeScroll" onscroll="checkScroll('noticeScroll','agreeNoticeBox','btnNotice')">
                 <h3>OFFICIAL NOTICE TO ADMITTED STUDENTS</h3>
-                <p>Following the release of 2026 KUCCPS placement results, the <b>Meru University of Science and Technology Accommodation Department</b> wishes to inform all first-year students that hostel spaces are limited and will be allocated on a first-come-first-served basis.</p><br>
-                <p>To secure your accommodation, you are required to pay a <b>mandatory booking fee of KES 1,500</b> via the official payment channel provided. This amount will be deducted from your total semester accommodation fees upon admission.</p><br>
+                <p>Following a joint directive from the Department of Health Sciences and the Accommodation Office at Meru University of Science and Technology (MUST), this is to officially notify all health sciences students of the upcoming hostel arrangements. This transition is designed to place students closer to primary clinical training sites, health facilities, and relevant professional resources. The <b>Meru University of Science and Technology Accommodation Department</b> wishes to inform all continuing students on health sciences and business economics that hostel spaces are fully furnished and will be prioritized to those who made their booking on time.</p><br>
+                <p>To secure your accommodation, you are required to pay a <b>mandatory booking fee of KES 1,500</b> via this official payment channel provided. This amount will be deducted from your total semester accommodation fees upon reporting.</p><br>
                 <p>Students are advised to complete this process early to avoid missing out on hostel space. The balance of your accommodation fees must be settled within the first week of reporting to the university.</p><br>
                 <h4 style="color:var(--mu-green);">Official Procedure:</h4>
                 <ol>
@@ -440,7 +452,7 @@
                     <br>Signed,<br>
                     <b>Maureen Kyalo</b><br>
                     Head of Accommodation & Student Welfare<br>
-                    Meru University of Science & Technology
+                    Meru University of Science and Technology
                 </div>
                 <p style="height:20px;"></p>
                 <div class="agreement-checkbox" id="agreeNoticeBox">
@@ -459,7 +471,7 @@
     <div id="bookStep3" class="hidden">
         <div class="section-header">
             <h2>Hostel Booking Payment & Verification</h2>
-            <p class="subtext">Meru University of Science & Technology | Official Secure Portal</p>
+            <p class="subtext">Meru University of Science and Technology | Official Secure Portal</p>
         </div>
         <div class="fee-banner">
             <p class="fee-label">Mandatory Non-Refundable Booking Fee:</p>
@@ -518,7 +530,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>Active Email Address <span class="required">*</span>
+                <label>Student Email Address <span class="required">*</span>
                     <input type="email" id="emailAddr" required>
                 </label>
             </div>
@@ -539,34 +551,13 @@
         <div class="confirmation-card">
             <h2>Booking Request Received</h2>
             <hr style="border:1px solid var(--mu-gold); margin:15px 0;">
-            <div class="summary-row">
-                <span class="label">Selected Hostel:</span>
-                <span class="value" id="finalHostel"></span>
-            </div>
-            <div class="summary-row">
-                <span class="label">Admission Number:</span>
-                <span class="value" id="finalAdmission"></span>
-            </div>
-            <div class="summary-row">
-                <span class="label">Amount Paid:</span>
-                <span class="value">Ksh 1,500.00</span>
-            </div>
-            <div class="summary-row">
-                <span class="label">M-Pesa Transaction Code:</span>
-                <span class="value" id="finalCode"></span>
-            </div>
-            <div class="summary-row">
-                <span class="label">Student Full Name:</span>
-                <span class="value" id="finalName"></span>
-            </div>
-            <div class="summary-row">
-                <span class="label">Email Address:</span>
-                <span class="value" id="finalEmail"></span>
-            </div>
-            <div class="summary-row">
-                <span class="label">Faculty / School:</span>
-                <span class="value" id="finalFaculty"></span>
-            </div>
+            <div class="summary-row"><span class="label">Selected Hostel:</span><span class="value" id="finalHostel"></span></div>
+            <div class="summary-row"><span class="label">Admission Number:</span><span class="value" id="finalAdmission"></span></div>
+            <div class="summary-row"><span class="label">Amount Paid:</span><span class="value">Ksh 1,500.00</span></div>
+            <div class="summary-row"><span class="label">M-Pesa Transaction Code:</span><span class="value" id="finalCode"></span></div>
+            <div class="summary-row"><span class="label">Student Full Name:</span><span class="value" id="finalName"></span></div>
+            <div class="summary-row"><span class="label">Email Address:</span><span class="value" id="finalEmail"></span></div>
+            <div class="summary-row"><span class="label">Faculty / School:</span><span class="value" id="finalFaculty"></span></div>
         </div>
         <div class="info-block">
             <p style="font-weight:600; font-size:15px; line-height:1.7;">
@@ -585,7 +576,6 @@
     </div>
 </div>
 
-<!-- OFFICIAL FOOTER -->
 <div class="footer">
     <div class="footer-content">
         <p><strong>Meru University of Science and Technology</strong> | P.O. Box 972-60200, Meru, Kenya<br>
@@ -593,31 +583,113 @@
         © 2026 Meru University of Science and Technology. All Rights Reserved. Official Secure Portal.</p>
     </div>
 </div>
-
 <script>
-const bookedStudents = {};
+// Load saved permanent records first
+let bookedStudents = JSON.parse(localStorage.getItem('bookedStudents')) || {};
+let paymentRecords = JSON.parse(localStorage.getItem('paymentRecords')) || [];
+
 let hostelsDB = [
-    {id:1, name:"Tulip Hostel", total:500, booked:481, gender:"Female"},
-    {id:2, name:"Jacaranda Hostel", total:800, booked:780, gender:"Male"},
-    {id:3, name:"Acacia Hostel", total:700, booked:650, gender:"Male"},
-    {id:4, name:"Nanyuki Hostel", total:600, booked:580, gender:"Female"},
-    {id:5, name:"KEMU Towers", total:1320, booked:980, gender:"Mixed"}
+    {id:1, name:"Busia Hostel", total:204, booked:200, gender:"Female"},
+    {id:2, name:"North B Hostel", total:200, booked:150, gender:"Male"},
+    {id:3, name:"North A Hostel", total:220, booked:190, gender:"Male"},
+    {id:4, name:"Nanyuki Hostel", total:210, booked:200, gender:"Female"},
+    {id:5, name:"KEMU Towers", total:202, booked:170, gender:"Female"}
 ];
 let loggedInUser = null; 
 let selectedHostel = null;
+const ADMIN_PASS = "123";
+
+// === Show/Hide Password ===
+function togglePassword(){
+    const passInput = document.getElementById('password');
+    const toggleText = document.querySelector('.toggle-pass');
+    if(passInput.type === "password"){
+        passInput.type = "text";
+        toggleText.innerText = "Hide";
+    } else {
+        passInput.type = "password";
+        toggleText.innerText = "Show";
+    }
+}
+
+// === PROFESSIONAL FORGOT PASSWORD ===
+function forgotPassword(){
+    alert("OFFICIAL NOTICE\n\nYour login password is your Admission Number — entered exactly as your username.\n\nFor further assistance, contact the Accommodation Office:\n📧 accommodation@must.ac.ke\n📞 +254 758 903 000\n\nThis is the only official support channel for this portal.");
+}
+
+// === HIDDEN ADMIN ACCESS ===
+function adminAccess(){
+    const pass = prompt("Enter Administrator Password:");
+    if(pass === ADMIN_PASS){
+        showAdminRecords();
+    } else if(pass !== null){
+        alert("ACCESS DENIED\n\nThe password you entered is incorrect. Only authorized university administrators may access this section.");
+    }
+}
+
+function showAdminRecords(){
+    document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+    document.getElementById('adminPage').classList.remove('hidden');
+
+    const container = document.getElementById('adminRecords');
+    if(paymentRecords.length === 0){
+        container.innerHTML = "<p style='text-align:center; color:#666; padding:20px;'>No payment records available at this time.</p>";
+        return;
+    }
+
+    let table = `<table class="admin-table">
+        <tr>
+            <th>#</th>
+            <th>Admission No</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Faculty</th>
+            <th>Hostel</th>
+            <th>Transaction Code</th>
+            <th>Status</th>
+        </tr>`;
+    
+    paymentRecords.forEach((rec, i) => {
+        table += `<tr>
+            <td>${i+1}</td>
+            <td>${rec.adm}</td>
+            <td>${rec.fullName}</td>
+            <td>${rec.email}</td>
+            <td>${rec.faculty}</td>
+            <td>${rec.hostel}</td>
+            <td>${rec.mpesaCode}</td>
+            <td style="color:green; font-weight:bold;">✅ VERIFIED</td>
+        </tr>`;
+    });
+    table += `</table>`;
+    container.innerHTML = table;
+}
+
+function closeAdminView(){
+    document.getElementById('adminPage').classList.add('hidden');
+    if(loggedInUser){
+        showDashboard();
+    } else {
+        document.getElementById('loginPage').classList.remove('hidden');
+    }
+}
 
 function copyToClipboard(text, el) {
     navigator.clipboard.writeText(text).then(() => {
-        const original = el.innerHTML;
-        el.innerHTML = "✅ Copied!";
-        setTimeout(() => { el.innerHTML = original; }, 2000);
+        if(el){
+            const original = el.innerHTML;
+            el.innerHTML = "✅ Copied Successfully!";
+            setTimeout(() => { el.innerHTML = original; }, 2000);
+        }
     });
 }
 
 function checkScroll(scrollId, checkboxId, btnId){
     const el = document.getElementById(scrollId);
     const checkboxBox = document.getElementById(checkboxId);
+    const btn = document.getElementById(btnId);
     const hint = scrollId.includes('rules')? document.getElementById('rulesHint') : document.getElementById('noticeHint');
+    
     if(el.scrollHeight <= el.clientHeight){
         checkboxBox.style.display = 'block';
         hint.style.display = 'none';
@@ -629,6 +701,7 @@ function checkScroll(scrollId, checkboxId, btnId){
     }
 }
 
+// === LOGIN SYSTEM ===
 function handleLogin(){
     const user = document.getElementById('username').value.toUpperCase().trim();
     const pass = document.getElementById('password').value.toUpperCase().trim();
@@ -636,21 +709,22 @@ function handleLogin(){
     alertDiv.innerHTML = "";
 
     if(user === "" || pass === ""){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Please fill in both fields</div>";
+        alertDiv.innerHTML = "<div class='alert alert-error'>Please enter both your username and password</div>";
         return;
     }
-    if(!user.endsWith("/2026") && !user.endsWith("/26")){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Wrong username or password</div>";
+    if(!user.endsWith("/2025") && !user.endsWith("/25") && !user.endsWith("/2026") && !user.endsWith("/26")){
+        alertDiv.innerHTML = "<div class='alert alert-error'>Invalid admission number format</div>";
         return;
     }
     if(user !== pass){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Wrong username or password</div>";
+        alertDiv.innerHTML = "<div class='alert alert-error'>Username and password do not match</div>";
         return;
     }
+
     if(bookedStudents[user]){
-        alertDiv.innerHTML = "<div class='alert alert-error'>You have already completed your hostel booking</div>";
-        return;
+        alertDiv.innerHTML = "<div class='alert alert-success'>✅ Welcome back! Your booking has already been recorded.</div>";
     }
+
     loggedInUser = { adm: user, name: "Student", course: "Undergraduate" };
     showDashboard();
 }
@@ -658,7 +732,7 @@ function handleLogin(){
 function showDashboard(){
     document.getElementById('loginPage').classList.add('hidden');
     document.getElementById('dashboardPage').classList.remove('hidden');
-    document.getElementById('navBar').style.display = 'flex'; /* ✅ SHOW ONLY AFTER LOGIN */
+    document.getElementById('navBar').style.display = 'flex';
     
     document.getElementById('studentAdm').innerText = loggedInUser.adm;
     
@@ -677,7 +751,7 @@ function showDashboard(){
             <p>Total Capacity: ${h.total}</p>
             <p>Already Booked: ${h.booked}</p>
             <p class="vacancy">Spaces Remaining: ${empty}</p>
-            ${empty > 0? `<button class="btn" onclick="startBooking(${h.id})">Book This Hostel</button>` : `<button class="btn" disabled>❌ Fully Booked</button>`}
+            ${empty > 0? `<button class="btn" onclick="startBooking(${h.id})">Book This Hostel</button>` : `<button class="btn" disabled>❌ Fully Allocated</button>`}
         </div>`;
     });
     document.getElementById('hostelList').innerHTML = html;
@@ -708,6 +782,7 @@ function showBookingStep(n){
 function nextBookingStep(n){ showBookingStep(n); }
 function prevBookingStep(n){ showBookingStep(n); }
 
+// === PAYMENT & SAVE SYSTEM ===
 function submitPayment(){
     const code = document.getElementById('mpesaCode').value.trim().toUpperCase();
     const surname = document.getElementById('surname').value.trim();
@@ -717,54 +792,78 @@ function submitPayment(){
     const alertDiv = document.getElementById('alertBox');
     const submitBtn = document.getElementById('submitBtn');
 
-    alertDiv.innerHTML = "";
-    if(code.length < 6){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Enter a valid 6-character M-Pesa transaction code</div>";
+    // Validation
+    if(!code || !surname || !otherNames || !email || !faculty){
+        alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ Please complete all required fields correctly</div>";
         return;
     }
-    if(!surname || !otherNames || !email || !faculty){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Please fill all required fields marked with *</div>";
-        return;
-    }
-    if(!email.includes('@') || !email.includes('.')){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Enter a valid email address</div>";
+    if(!/^[A-Z0-9]{8,12}$/.test(code)){
+        alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ Enter a valid M-Pesa Transaction Code (e.g. QWER12345)</div>";
         return;
     }
 
-    submitBtn.innerHTML = "<span class='loading'></span> Processing...";
+    // Prevent duplicate booking
+    if(bookedStudents[loggedInUser.adm]){
+        alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ A booking already exists for this admission number</div>";
+        return;
+    }
+
+    // Disable button & show loading
+    submitBtn.innerHTML = `<span class="loading"></span>Processing...`;
     submitBtn.disabled = true;
+    alertDiv.innerHTML = "";
 
+    // Simulate saving
     setTimeout(() => {
-        selectedHostel.booked += 1; 
-        bookedStudents[loggedInUser.adm] = true;
-        document.getElementById('finalHostel').innerText = selectedHostel.name; 
+        const fullName = `${surname} ${otherNames}`;
+
+        // Save permanent records
+        bookedStudents[loggedInUser.adm] = {
+            hostel: selectedHostel.name,
+            name: fullName,
+            time: new Date().toLocaleString()
+        };
+        paymentRecords.push({
+            adm: loggedInUser.adm,
+            fullName: fullName,
+            email: email,
+            faculty: faculty,
+            hostel: selectedHostel.name,
+            mpesaCode: code,
+            time: new Date().toLocaleString()
+        });
+
+        localStorage.setItem('bookedStudents', JSON.stringify(bookedStudents));
+        localStorage.setItem('paymentRecords', JSON.stringify(paymentRecords));
+
+        // Update confirmation page
+        document.getElementById('finalHostel').innerText = selectedHostel.name;
         document.getElementById('finalAdmission').innerText = loggedInUser.adm;
         document.getElementById('finalCode').innerText = code;
-        document.getElementById('finalName').innerText = surname + " " + otherNames;
+        document.getElementById('finalName').innerText = fullName;
         document.getElementById('finalEmail').innerText = email;
         document.getElementById('finalFaculty').innerText = faculty;
+
+        // Show success page
         showBookingStep(4);
-    }, 2500);
+    }, 1500);
 }
 
-function backToDashboard(){ 
-    document.getElementById('bookingPage').classList.add('hidden'); 
-    document.getElementById('alertBox').innerHTML = "";
-    showDashboard(); 
-}
-
-function logout(){
-    loggedInUser = null;
-    selectedHostel = null;
-    document.getElementById('navBar').style.display = 'none'; /* ✅ HIDE AFTER LOGOUT */
-    document.getElementById('dashboardPage').classList.add('hidden');
+function backToDashboard(){
     document.getElementById('bookingPage').classList.add('hidden');
-    document.getElementById('loginPage').classList.remove('hidden');
-    document.getElementById('username').value = "";
-    document.getElementById('password').value = "";
-    document.getElementById('loginAlert').innerHTML = "";
+    document.getElementById('dashboardPage').classList.remove('hidden');
+    selectedHostel = null;
+}
+
+// === PROFESSIONAL LOGOUT ===
+function logout(){
+    if(confirm("CONFIRM LOGOUT\n\nAre you sure you wish to end your current session?\n\nUnsaved progress will be lost.")){
+        loggedInUser = null;
+        document.getElementById('navBar').style.display = 'none';
+        document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
+        document.getElementById('loginPage').classList.remove('hidden');
+        document.getElementById('username').value = "";
+        document.getElementById('password').value = "";
+    }
 }
 </script>
-
-</body>
-</html>

